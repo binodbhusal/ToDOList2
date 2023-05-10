@@ -1,7 +1,6 @@
-import { removeTask, getStorage } from './functions';
 import { JSDOM } from 'jsdom';
 import { LocalStorage } from 'node-localstorage';
-
+import { removeTask, getStorage } from './functions.js';
 
 const localStorage = new LocalStorage('./localstorage');
 
@@ -32,22 +31,15 @@ describe('removeTask', () => {
     ];
     const indexToRemove = 1;
 
-    
     removeTask(indexToRemove, tasks);
-
-    
   });
 });
 
 describe('getStorage', () => {
   test('Returns the task from localStorage', () => {
-    
     const taskData = [{ description: 'Task 1', completed: false }];
     localStorage.setItem('taskData', JSON.stringify(taskData));
-
-    
     const result = getStorage();
-
-    
+    expect(result).toEqual(taskData);
   });
 });
