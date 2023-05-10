@@ -1,11 +1,30 @@
-export const taskEntry = document.getElementById('txtTask');
-export const getStorage = (task) => {
-  task = JSON.parse(localStorage.getItem('taskData')) || [];
-  return task;
+import { LocalStorage } from 'node-localstorage';
+
+// Create an instance of LocalStorage
+const localStorage = new LocalStorage('./localstorage');
+
+export const getStorage = () => {
+  const taskData = JSON.parse(localStorage.getItem('taskData')) || [];
+  return taskData;
 };
+
+
+export const taskEntry = () => {
+  const document = window.document;
+  return document.getElementById('txtTask');
+};
+
 export const tasks = getStorage();
 export const setStorage = () => {
   localStorage.setItem('taskData', JSON.stringify(tasks));
+};
+export const removeTask = (index, tasks) => {
+  for (let i = index + 1; i < tasks.length; i += 1) {
+    tasks[i].index -= 1;
+  }
+  tasks.splice(index, 1);
+  taskPopulate(tasks);
+  setStorage(tasks);
 };
 export const taskPopulate = (tasks) => {
   const taskList = document.getElementById('container');
@@ -18,15 +37,7 @@ export const taskPopulate = (tasks) => {
 
     </div> <hr>
     `).join('');
-  const removeTask = (index) => {
-    for (let i = index + 1; i < tasks.length; i += 1) {
-      tasks[i].index -= 1;
-    }
-    tasks.splice(index, 1);
-    taskPopulate(tasks);
-    setStorage(tasks);
-  };
-
+  
   const btnRemove = document.querySelectorAll('.btnremove');
   if (btnRemove) {
     btnRemove.forEach((btn, index) => {
