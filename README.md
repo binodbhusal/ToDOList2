@@ -106,6 +106,16 @@ Run npm dev to view the project on local host(npm run dev)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+<!-- FUTURE FEATURES -->
+
+## 🔭 Future Features <a name="future-features"></a>
+
+
+- [ ] **[making app responsive]**
+- [ ] **[add dragg and drop to the app]**
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 ## 🤝 Contributing <a name="contributing"></a>
 
 Contributions, issues, and feature requests are welcome!
@@ -123,3 +133,10 @@ Give a star if you like this project!
 We would like to thank Microverse for allowing us to work on this project 
 It's a good experience, we can't express how we feel after learning and implementing what we learned in this To Do list project.
 
+<!-- LICENSE -->
+
+## 📝 License <a name="license"></a>
+
+This project is [MIT](./LICENSE) licensed.
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
