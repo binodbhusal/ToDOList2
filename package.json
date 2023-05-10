@@ -12,6 +12,7 @@
       "^.+\\.jsx?$": "babel-jest"
     }
   },
+  
   "repository": {
     "type": "git",
     "url": "git+https://github.com/binodbhusal/ToDoList2.git"

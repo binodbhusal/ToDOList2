@@ -81,6 +81,15 @@ export const taskPopulate = (tasks) => {
       setStorage();
     });
   });
+  const btnRemove = document.querySelectorAll('.btnremove');
+  if (btnRemove) {
+    btnRemove.forEach((btn, index) => {
+      btn.addEventListener('click', () => {
+        // eslint-disable-next-line no-use-before-define
+        removeTask(index);
+      });
+    });
+  }
 };
 export const removeTask = (index, tasks) => {
   for (let i = index + 1; i < tasks.length; i += 1) {
@@ -91,14 +100,6 @@ export const removeTask = (index, tasks) => {
   setStorage(tasks);
 };
 
-const btnRemove = document.querySelectorAll('.btnremove');
-if (btnRemove) {
-  btnRemove.forEach((btn, index) => {
-    btn.addEventListener('click', () => {
-      removeTask(index);
-    });
-  });
-}
 export const addList = () => {
   const taskDescription = taskEntry.value;
 
