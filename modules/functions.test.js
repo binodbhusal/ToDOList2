@@ -1,6 +1,8 @@
 import { JSDOM } from 'jsdom';
 import { LocalStorage } from 'node-localstorage';
-import { removeTask, getStorage } from './functions.js';
+import {
+  removeTask, getStorage, addList, tasks, taskEntry,
+} from './functions.js';
 
 const localStorage = new LocalStorage('./localstorage');
 
@@ -41,5 +43,33 @@ describe('getStorage', () => {
     localStorage.setItem('taskData', JSON.stringify(taskData));
     const result = getStorage();
     expect(result).toEqual(taskData);
+  });
+});
+
+// test add
+
+describe('addList', () => {
+  beforeEach(() => {
+    // Clear the tasks array and local storage before each test
+    const dom = new JSDOM('<!DOCTYPE html><div id="container"></div>', {
+      url: 'http://localhost',
+    });
+    global.document = dom.window.document;
+    tasks.length = 0;
+    localStorage.clear();
+  });
+
+  test('adds a new task to the list', () => {
+    // Set up a mock task entry and call the addList function
+    // const taskEntry = { value: 'Task 1' };
+    addList(taskEntry.value = 'first');
+
+    // Check that the tasks array now contains the new task
+    expect(tasks.length).toBe(1);
+    expect(tasks[0]).toEqual({
+      description: 'first',
+      completed: false,
+      index: 1,
+    });
   });
 });

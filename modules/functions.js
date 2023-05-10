@@ -8,9 +8,8 @@ export const getStorage = () => {
   return taskData;
 };
 
-
 export const taskEntry = () => {
-  const document = window.document;
+  const { document } = window;
   return document.getElementById('txtTask');
 };
 
@@ -18,14 +17,7 @@ export const tasks = getStorage();
 export const setStorage = () => {
   localStorage.setItem('taskData', JSON.stringify(tasks));
 };
-export const removeTask = (index, tasks) => {
-  for (let i = index + 1; i < tasks.length; i += 1) {
-    tasks[i].index -= 1;
-  }
-  tasks.splice(index, 1);
-  taskPopulate(tasks);
-  setStorage(tasks);
-};
+
 export const taskPopulate = (tasks) => {
   const taskList = document.getElementById('container');
   taskList.innerHTML = tasks.map((task) => `
@@ -37,15 +29,7 @@ export const taskPopulate = (tasks) => {
 
     </div> <hr>
     `).join('');
-  
-  const btnRemove = document.querySelectorAll('.btnremove');
-  if (btnRemove) {
-    btnRemove.forEach((btn, index) => {
-      btn.addEventListener('click', () => {
-        removeTask(index);
-      });
-    });
-  }
+
   const editTask = (index) => {
     const label = document.querySelector(`label[for='${index + 1}']`);
     const currentText = label.innerText.trim();
@@ -68,6 +52,7 @@ export const taskPopulate = (tasks) => {
         label.replaceWith(label);
       }
     };
+
     input.addEventListener('blur', saveChanges);
     input.addEventListener('keydown', (event) => {
       if (event.key === 'Enter') {
@@ -97,7 +82,23 @@ export const taskPopulate = (tasks) => {
     });
   });
 };
+export const removeTask = (index, tasks) => {
+  for (let i = index + 1; i < tasks.length; i += 1) {
+    tasks[i].index -= 1;
+  }
+  tasks.splice(index, 1);
+  taskPopulate(tasks);
+  setStorage(tasks);
+};
 
+const btnRemove = document.querySelectorAll('.btnremove');
+if (btnRemove) {
+  btnRemove.forEach((btn, index) => {
+    btn.addEventListener('click', () => {
+      removeTask(index);
+    });
+  });
+}
 export const addList = () => {
   const taskDescription = taskEntry.value;
 
