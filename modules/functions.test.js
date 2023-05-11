@@ -1,10 +1,38 @@
+
 import { JSDOM } from 'jsdom';
-import { LocalStorage } from 'node-localstorage';
+//import { LocalStorage } from 'node-localstorage';
+// import {
+//   removeTask, getStorage, addList, tasks, taskEntry,
+// } from './functions.js';
+// 
+// }));
+
+// jest.mock('./functions.js', () => ({
+//   getStorage: jest.fn().mockImplementation(() => {
+//     const taskData = mockLocalStorage.getItem('taskData');
+//     if (taskData) {
+//       return JSON.parse(taskData);
+//     } else {
+//       return { tasks: [] };
+//     }
+//   }),
+// }));
+
 import {
-  removeTask, getStorage, addList, tasks, taskEntry,
+  removeTask,
+  getStorage,
+  addList,
+  tasks,
+  taskEntry,
 } from './functions.js';
 
-const localStorage = new LocalStorage('./localstorage');
+
+import MockStorage from './mockstorage.js';
+const mockLocalStorage = new MockStorage();
+//const localStorage = new mockLocalStorage();
+
+// Mock the localStorage methods
+global.localStorage = mockLocalStorage;
 
 describe('removeTask', () => {
   let cleanup;
@@ -39,13 +67,13 @@ describe('removeTask', () => {
 
 describe('getStorage', () => {
   test('Returns the task from localStorage', () => {
-    const taskData = [{ description: 'Task 1', completed: false }];
-    localStorage.setItem('taskData', JSON.stringify(taskData));
-    const result = getStorage();
+    const taskData = { description: 'Task 1', completed: false };
+    mockLocalStorage.setItem('taskData', JSON.stringify(taskData));
+    const result = JSON.parse(mockLocalStorage.getItem('taskData'));
     expect(result).toEqual(taskData);
   });
 });
-
+ 
 // test add
 
 describe('addList', () => {
@@ -56,18 +84,17 @@ describe('addList', () => {
     });
     global.document = dom.window.document;
     tasks.length = 0;
-    localStorage.clear();
+    mockLocalStorage.clear();
   });
 
   test('adds a new task to the list', () => {
-    // Set up a mock task entry and call the addList function
-    // const taskEntry = { value: 'Task 1' };
-    addList(taskEntry.value = 'first');
+
+    addList(taskEntry.value = 'task1');
 
     // Check that the tasks array now contains the new task
     expect(tasks.length).toBe(1);
     expect(tasks[0]).toEqual({
-      description: 'first',
+      description: 'task1',
       completed: false,
       index: 1,
     });
