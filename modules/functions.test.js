@@ -1,4 +1,3 @@
-
 import { JSDOM } from 'jsdom';
 //import { LocalStorage } from 'node-localstorage';
 // import {
@@ -21,7 +20,6 @@ import {
 
 
 import MockStorage from './mockstorage.js';
-//import { beforeEach } from 'node:test';
 const mockLocalStorage = new MockStorage();
 //const localStorage = new mockLocalStorage();
 
@@ -62,9 +60,9 @@ describe('removeTask', () => {
 describe('getStorage', () => {
 
   test('Returns the task from localStorage', () => {
-    const taskData = { description: 'Task 1', completed: false };
-    mockLocalStorage.setItem('taskData', JSON.stringify(taskData));
-    const result = JSON.parse(mockLocalStorage.getItem('taskData'));
+    const taskData = [{ description: 'Task 1', completed: false }];
+    localStorage.setItem('taskData', JSON.stringify(taskData));
+    const result = getStorage();
     expect(result).toEqual(taskData);
   });
 });
@@ -79,15 +77,18 @@ describe('addList', () => {
     });
     global.document = dom.window.document;
     tasks.length = 0;
-  })
-  test('adds a new task to the list', () => {
+    mockLocalStorage.clear();
+  });
 
-    addList(taskEntry.value = 'task1');
+  test('adds a new task to the list', () => {
+    // Set up a mock task entry and call the addList function
+    // const taskEntry = { value: 'Task 1' };
+    addList(taskEntry.value = 'first');
 
     // Check that the tasks array now contains the new task
     expect(tasks.length).toBe(1);
     expect(tasks[0]).toEqual({
-      description: 'task1',
+      description: 'first',
       completed: false,
       index: 1,
     });
