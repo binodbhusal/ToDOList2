@@ -1,4 +1,4 @@
-import { tasks, setStorage } from '../modules/functions.js';
+import { tasks, setStorage } from './functions.js';
 
 const editTask = (index) => {
   const label = document.querySelector(`label[for='${index + 1}']`);
