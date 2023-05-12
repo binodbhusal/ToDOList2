@@ -1,4 +1,5 @@
 import { LocalStorage } from 'node-localstorage';
+import MockStorage from './mockstorage';
 
 // Create an instance of LocalStorage
 const localStorage = new LocalStorage('./localstorage');
@@ -112,6 +113,7 @@ export const addList = () => {
   getStorage(tasks);
   tasks.push(newTask);
   setStorage(tasks);
+
   taskPopulate(tasks);
   taskEntry.value = '';
 
