@@ -1,6 +1,6 @@
 import { JSDOM } from 'jsdom';
-import { tasks, setStorage } from './functions.js';
-import editTask from './editTask.js';
+import { tasks, setStorage } from '../modules/functions.js';
+import editTask from '../modules/editTask.js';
 
 // Mock the required functions and objects
 jest.mock('../modules/functions.js', () => ({

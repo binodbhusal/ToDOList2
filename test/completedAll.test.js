@@ -1,5 +1,5 @@
 import { tasks, taskPopulate, setStorage } from '../modules/functions.js';
-import removeCompletedTask from './completeAll.js';
+import removeCompletedTask from '../src/completeAll.js';
 
 // Mock the required functions and objects
 jest.mock('../modules/functions.js', () => ({
